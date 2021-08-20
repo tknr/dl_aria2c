@@ -4,11 +4,11 @@ CMDNAME=`basename $0`
 
 FILENAME_QUEUE="queue_aria2c.txt"
 
-MAX_CONNECTIONS_PER_SERVER=16
+MAX_CONNECTIONS_PER_SERVER=5
 SPLIT=5
-MIN_SPLIT_SIZE='1M'
-CONTINUE=true
-FORCE_SEQUENTIAL=true
+MIN_SPLIT_SIZE='20M'
+CONTINUE=false
+FORCE_SEQUENTIAL=false
 
 usage_exit() {
         echo "Usage: ${CMDNAME} [-x max-connection-per-server] [-s split] [-k min-split-size] [-q queue_filename]" 1>&2
