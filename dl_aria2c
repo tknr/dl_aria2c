@@ -1,12 +1,12 @@
-#!/bin/bash -x
+#!/bin/bash
 export IFS=$'\n'
 CMDNAME=`basename $0`
 
 FILENAME_QUEUE="queue_aria2c.txt"
-
+COMMAND="time aria2c"
 MAX_CONNECTIONS_PER_SERVER=5
 SPLIT=5
-MIN_SPLIT_SIZE='20M'
+MIN_SPLIT_SIZE="20M"
 CONTINUE=false
 FORCE_SEQUENTIAL=false
 
@@ -60,8 +60,8 @@ do
 	TARGET_URL=`curl -I -Ls -o /dev/null -w %{url_effective} ${URL}`
 
 	if [ ${#TITLE} = 0 ] ; then
-		aria2c -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --force-sequential=${FORCE_SEQUENTIAL} ${TARGET_URL} && mark_finished "${LINE}" "${FILENAME_QUEUE}"
+		eval ${COMMAND} -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --force-sequential=${FORCE_SEQUENTIAL} ${TARGET_URL} && mark_finished "${LINE}" "${FILENAME_QUEUE}"
 	else
-		aria2c -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --out=${TITLE} ${TARGET_URL} && mark_finished "${LINE}" "${FILENAME_QUEUE}"
+		eval ${COMMAND} -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --out=${TITLE} ${TARGET_URL} && mark_finished "${LINE}" "${FILENAME_QUEUE}"
 	fi
 done
