@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 export IFS=$'\n'
 CMDNAME=`basename $0`
 
@@ -6,7 +6,7 @@ FILENAME_QUEUE="queue_aria2c.txt"
 
 MAX_CONNECTIONS_PER_SERVER=16
 SPLIT=5
-MIN_SPLIT_SIZE='5M'
+MIN_SPLIT_SIZE='1M'
 CONTINUE=true
 FORCE_SEQUENTIAL=true
 
