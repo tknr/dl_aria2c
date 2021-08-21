@@ -60,8 +60,10 @@ do
 	TARGET_URL=`curl -I -Ls -o /dev/null -w %{url_effective} ${URL}`
 
 	if [ ${#TITLE} = 0 ] ; then
-		eval ${COMMAND} -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --force-sequential=${FORCE_SEQUENTIAL} ${TARGET_URL} && mark_finished "${LINE}" "${FILENAME_QUEUE}"
+		eval ${COMMAND} -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --force-sequential=${FORCE_SEQUENTIAL} ${TARGET_URL} || continue
+		mark_finished "${LINE}" "${FILENAME_QUEUE}"
 	else
-		eval ${COMMAND} -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --out=${TITLE} ${TARGET_URL} && mark_finished "${LINE}" "${FILENAME_QUEUE}"
+		eval ${COMMAND} -x${MAX_CONNECTIONS_PER_SERVER} -s${SPLIT} -k${MIN_SPLIT_SIZE} --continue=${CONTINUE} --out=${TITLE} ${TARGET_URL} || continue
+		mark_finished "${LINE}" "${FILENAME_QUEUE}"
 	fi
 done
